@@ -17,12 +17,11 @@
 
 ### セッション開始時の確認
 
-`_claude/tasks/pending/` と `_claude/tasks/review/` を確認する。通常の指示ファイル（.md）とソースコード用リポのリンクファイル（.ref.md）の両方が存在しうる。
+`_claude/tasks/` を確認する:
 
 - **pending/ に未実行がある場合**: 「未実行の指示が○件あります。Claudeコードで実行してください」と通知する
-- **review/ にレビュー待ちがある場合**:
-  - 通常の指示ファイル（.md）: 内容を読み、実行結果をレビューする。問題なければ `_claude/tasks/done/YYYY-MM/` に移動する。問題があれば修正して `pending/` に再配置する
-  - リンクファイル（.ref.md）: 参照先のソースコード用リポの `_tasks/review/` から本体を取得し、実行結果をレビューする。問題なければ本体を `_claude/tasks/done/YYYY-MM/` に保存し、リンクファイルとソースコード用リポの `_tasks/review/` の本体を削除する。問題があれば修正した指示ファイルをソースコード用リポの `_tasks/pending/` に再配置し、リンクファイルも `_claude/tasks/pending/` に戻す
+- **review/ にレビュー待ちがある場合**: 内容を読み、実行結果をレビューする。問題なければ `_claude/tasks/done/YYYY-MM/` に移動する。問題があれば修正して `pending/` に再配置する
+- **{リポ名}/ にリンクファイル（.ref.md）がある場合**: 参照先のソースコード用リポの `_tasks/` を GitHub API で確認し、指示ファイルの状態を把握する。`_tasks/review/` にあればレビューを実施する。レビュー完了後、本体を `_claude/tasks/done/YYYY-MM/` に保存し、ソースコード用リポから本体を削除、.ref.md も削除する。問題があれば修正した指示ファイルをソースコード用リポの `_tasks/pending/` に再配置する
 
 ### 指示ファイルの作成
 
@@ -35,7 +34,7 @@
 
 **ソースコード用リポジトリがある作業:**
 1. 指示ファイルの本体をCLAUDE.mdの形式に従って作成し、ソースコード用リポの `_tasks/pending/` に配置する（GitHub API使用）
-2. リンクファイル（`.ref.md`）を `_claude/tasks/pending/` に配置する
+2. リンクファイル（`.ref.md`）を `_claude/tasks/{リポ名}/` に配置する
 3. 両方を commit & push する
 4. ユーザーに「Claudeコードで実行してください」と伝える
 
