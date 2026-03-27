@@ -1,6 +1,7 @@
-# Claude Code 環境別ルール
+# Claudeコード環境別ルール
 
-> このファイルは Claude Code（claude.ai/code）セッション時に CLAUDE.md から読み込まれる。
+> **このファイルはClaude Code（Claudeコード）専用です。Claudeチャット環境では読み込み禁止。**
+> CLAUDE.mdの環境判定でClaude Codeと判定された場合のみ読み込むこと。
 
 ## ファイル操作
 
