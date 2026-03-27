@@ -1,2 +1,2 @@
-# claude-office-template
-Claude Office セットアップ用テンプレート
+# claude-office-Repository
+Claude Office リポジトリテンプレート
