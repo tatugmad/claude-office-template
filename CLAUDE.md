@@ -200,12 +200,12 @@ commit & push が完了したら、そのcommitに含まれる**全ファイル*
 セッション開始時ステップ3で実行する。
 
 1. `_claude/version.md` からローカルバージョンを読み取る
-2. 配布元リポジトリの `_claude/version.md` をfetchし、新しいバージョンが配布されているか確認する。取得元URL: `https://raw.githubusercontent.com/tatugmad/claude-office-Repository/main/_claude/version.md`。**CDNキャッシュを回避するため、URLの末尾に `?v=` と現在のUNIXタイムスタンプを付与してからアクセスすること。**
+2. 配布元リポジトリ（`tatugmad/claude-office-Repository`）の `_claude/version.md` をGitHub APIで取得し、新しいバージョンが配布されているか確認する。**`raw.githubusercontent.com` はCDNキャッシュの影響を受けるため使用しない。必ずGitHub API（`api.github.com`）を使用すること。**
 3. 配布元のバージョンがローカルと同じであれば何もせずステップ4へ進む
 4. 新しいバージョンがある場合、以下の手順で更新を実行する:
    a. 更新前にcommitを1つ作成する（メッセージ: `自動更新前のバックアップ v{現バージョン}`）
-   b. **Systemファイル**（CLAUDE.md, rule-chat.md, rule-code.md, version.md）を配布元からfetchし、全面上書きする
-   c. **Schema＋User内容ファイル**（troubleshoot.md, profile.md, project.md, work-summary.md）について、配布元の `<!-- schema-start -->` 〜 `<!-- schema-end -->` ブロックのみをfetchし、ローカルファイルの該当ブロックを置き換える。本文は保持する
+   b. **Systemファイル**（CLAUDE.md, rule-chat.md, rule-code.md, version.md）を配布元からGitHub APIで取得し、全面上書きする
+   c. **Schema＋User内容ファイル**（troubleshoot.md, profile.md, project.md, work-summary.md）について、配布元からGitHub APIで取得し、`<!-- schema-start -->` 〜 `<!-- schema-end -->` ブロックのみをローカルファイルの該当ブロックに置き換える。本文は保持する
    d. 新スキーマで追加されたセクションが本文に存在しない場合は、ステップc.でfetchした配布元の本文から該当セクションをプレースホルダを含めてそのまま追加する
    e. 更新後にcommitを作成する（メッセージ: `自動更新 v{旧バージョン} → v{新バージョン}`）
 5. **作業フォルダ内の `_context.md`** については、セッション中に作業フォルダを選択した時点で、そのフォルダの `_context.md` のスキーマを確認し、必要であれば更新する
