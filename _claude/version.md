@@ -1,5 +1,5 @@
 # バージョン情報
 
-- version: 1.0.3
+- version: 1.0.4
 - released: 2026-03-29
 - source: https://github.com/tatugmad/claude-office-Repository
