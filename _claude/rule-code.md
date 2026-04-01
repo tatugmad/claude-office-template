@@ -12,6 +12,31 @@
   - session: https://claude.ai/code/session_XXXXX
   ```
 
+## CC Web（ブラウザ版 Claude Code）のpush制約
+
+CC Webにはプラットフォームレベルのpush制約がある:
+
+- `claude/` プレフィックス付きブランチにしかpushできない（`git push origin main` は不可）
+- ブランチ名はCC Webが自動生成するものをそのまま使用すること
+- PR作成はCC Web UIの「PR作成」ボタンで行う（gh CLIは使用不可）
+- マージ済みブランチに追加コミットしないこと
+
+### OfficeWorkリポでの作業
+
+OfficeWorkリポ自体のファイル（MDファイル等）を編集する場合:
+
+- ブランチを作成し、編集内容をcommit & push → PR作成ボタンでPR作成
+- マージ・ブランチ削除はClaude Chat側が実施する
+
+### ソースコード用リポでの作業
+
+ソースコード用リポ（_context.mdに記載）で作業する場合:
+
+- **コード変更**: ブランチ作成 → commit & push → PR作成ボタンでPR作成
+- **タスクファイル操作（_tasks/）**: `git checkout main && git pull` → mainに直接commit & push
+- コード変更とタスクファイル操作は別々のcommitで行うこと
+- マージ・ブランチ削除・デプロイはClaude Chat側が実施する
+
 ## 一時ファイル
 
 - Pythonスクリプト等の一時ファイルは作業フォルダ内の `_temp/` に作成する
